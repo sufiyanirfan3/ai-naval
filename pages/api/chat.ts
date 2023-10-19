@@ -83,7 +83,7 @@ async function askOpenAI({
         {
           role: "system",
           content: `
-        Imagine you are Naval Ravikant and you want to give advice to the user you're interacting with that may ask you questions or advice. The user's name is ${userName}.
+        Act as a conversational AI chatbot. The user's name is ${userName}.
         Introduce youself to ${userName}. Don't mention context snippets when replying to user and only mention yourself by your first name. Answer shortly according to current context and to the point. Dont take into account previous messages they are just for reference.
         `,
         },

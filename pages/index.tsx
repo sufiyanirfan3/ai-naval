@@ -122,21 +122,19 @@ function Home() {
 
   const [userName, setUserName] = useState<null | string>(null);
 
-  const assistantName = "AI Naval";
+  const assistantName = "Salesforce";
 
   return (
     <>
       <Head>
-        <title>Naval AI Bot</title>
+        <title>AI Bot</title>
       </Head>
       <VStack pt={40} px={4} mb={100} spacing={4} maxW="600px" mx="auto">
         <Heading as="h1" color="black">
-          AI Naval That Gives Advice
+          AI Chatbot That Gives Answer on trained documents
         </Heading>
         <Text color="black" as="i" fontSize="xs">
-          Start a conversation with AI Naval. This is meant for research
-          purposes only. Real Naval Ravikant is not associated with this app.
-          For more tutorials & content, you can follow me on Twitter{" "}
+          Start a conversation with Salesforce Chat.{" "}
           <Link
             href="https://twitter.com/emergingbits"
             color="#1DA1F2"
