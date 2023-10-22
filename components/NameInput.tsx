@@ -25,6 +25,7 @@ const NameInput = ({ onEnter }: { onEnter: (name: string) => void }) => {
       </FormControl>
       <Button
         colorScheme="blue"
+        mt={4}
         onClick={() => onEnter(name)}
         isDisabled={!name.trim()}
       >

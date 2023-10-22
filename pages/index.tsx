@@ -34,6 +34,7 @@ function Home() {
   const toast = useToast();
   const [loading, setLoading] = useState(false);
 
+
   // tracking user input
   const [text, setText] = useState("");
 
@@ -61,7 +62,7 @@ function Home() {
     if (!audioRef.current)
       return toast({ title: "Error enabling audio", status: "error" });
 
-    setLoading(true);
+    setLoading(true); //true thi phele
 
     const reqBody = {
       messages: props?.name ? undefined : [...messages, message],
@@ -85,6 +86,8 @@ function Home() {
 
     console.log("api jsonResp response:", jsonResp);
 
+    setLoading(false);
+
     const { audioDataBase64, translatedText } = jsonResp;
 
     addMessage({ role: "assistant", content: translatedText });
@@ -96,6 +99,7 @@ function Home() {
     await audioRef.current.play();
 
     setText("");
+
 
     try {
       setLoading(false);
@@ -135,13 +139,6 @@ function Home() {
         </Heading>
         <Text color="black" as="i" fontSize="xs">
           Start a conversation with Salesforce Chat.{" "}
-          <Link
-            href="https://twitter.com/emergingbits"
-            color="#1DA1F2"
-            isExternal
-          >
-            <Icon as={FaTwitter} fontSize="md" />
-          </Link>
         </Text>
 
         {!userName ? (
