@@ -20,7 +20,7 @@ dotenv.config();
   const pineconeIndex = client.Index(process.env.PINECONE_INDEX as string);
 
   // Specify the directory where your PDF files are located
-  const pdfDirectory = "./scripts/batch3"; // Update with your directory path
+  const pdfDirectory = "./scripts/batch4"; // Update with your directory path
 
   // Read the files in the directory
   const pdfFiles = fs.readdirSync(pdfDirectory);
