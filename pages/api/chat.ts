@@ -58,7 +58,7 @@ async function askOpenAI({
   if (messages?.length > 0) {
     const lastMsgContent = messages[messages.length - 1].content;
 
-    const data = await pinecone.similaritySearch(lastMsgContent, 3);
+    const data = await pinecone.similaritySearch(lastMsgContent, 5);
 
     console.log("pinecone data.length: ", data.length);
 
@@ -78,7 +78,7 @@ async function askOpenAI({
 
   try {
     const response = await openai.createChatCompletion({
-      model: "gpt-3.5-turbo",
+      model: "gpt-3.5-turbo-0301",
       messages: [
         {
           role: "system",
