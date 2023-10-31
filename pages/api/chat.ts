@@ -78,13 +78,13 @@ async function askOpenAI({
 
   try {
     const response = await openai.createChatCompletion({
-      model: "gpt-3.5-turbo-0301",
+      model: "gpt-3.5-turbo",
       messages: [
         {
           role: "system",
           content: `
         Act as a conversational AI chatbot. Your name is salesforce assistant. The user's name is ${userName}.
-        Introduce youself to ${userName}. Don't mention context snippets when replying to user and only mention yourself by your first name. Answer omly according to current context. Dont take into account previous messages they are just for reference.
+        Introduce youself to ${userName}. Don't mention context snippets when replying to user and only mention yourself by your first name. Answer only according to current context. Dont take into account previous messages they are just for reference.
         `,
         },
         ...(messages || [
