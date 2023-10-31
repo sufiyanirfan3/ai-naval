@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import Head from "next/head";
 import { FaTwitter } from "react-icons/fa";
 import Beatloader from "react-spinners/BeatLoader";
-import base64ToBlob from "@/utils/basetoblob";
+
 import {
   Box,
   Button,
@@ -60,10 +60,7 @@ function Home() {
       setText("");
     }
 
-    if (!audioRef.current)
-      return toast({ title: "Error enabling audio", status: "error" });
-
-    setLoading(true); //true thi phele
+    setLoading(true);
 
     const reqBody = {
       messages: props?.name ? undefined : [...messages, message],
@@ -89,15 +86,9 @@ function Home() {
 
     setLoading(false);
 
-    const { audioDataBase64, translatedText } = jsonResp;
+    const { translatedText } = jsonResp;
 
     addMessage({ role: "assistant", content: translatedText });
-
-    const audioBlob = base64ToBlob(audioDataBase64, "audio/mpeg");
-    const audioURL = URL.createObjectURL(audioBlob);
-
-    audioRef.current.src = audioURL;
-    await audioRef.current.play();
 
     setText("");
 
@@ -109,16 +100,6 @@ function Home() {
     }
   };
 
-  // this is a hack to allow mobile browsers to play audio without user interaction
-  const startAudioForPermission = async () => {
-    if (!audioRef.current) return;
-    await audioRef.current.play();
-  };
-
-  useEffect(() => {
-    const audio = new Audio();
-    audioRef.current = audio;
-  }, []);
 
   const userBgColor = useColorModeValue("blue.500", "blue.300");
   const assistantBgColor = useColorModeValue("gray.100", "gray.700");
@@ -145,7 +126,6 @@ function Home() {
         {!userName ? (
           <NameInput
             onEnter={(name) => {
-              startAudioForPermission();
               setUserName(name);
               askAi({ name });
             }}
