@@ -34,8 +34,6 @@ function Home() {
   const toast = useToast();
   const [loading, setLoading] = useState(false);
 
-
-  
   // tracking user input
   const [text, setText] = useState("");
 
@@ -92,14 +90,12 @@ function Home() {
 
     setText("");
 
-
     try {
       setLoading(false);
     } catch (e: any) {
       console.log("Error:", e.message);
     }
   };
-
 
   const userBgColor = useColorModeValue("blue.500", "blue.300");
   const assistantBgColor = useColorModeValue("gray.100", "gray.700");
@@ -152,11 +148,20 @@ function Home() {
                     position="absolute"
                     color="black"
                     top={-4}
-                    left={2}
+                    left={isUser ? "auto" : 2}
+                    right={isUser ? 1 : 0}
+                    width="max-content"
                   >
                     {isUser ? userName : assistantName}
                   </Text>
-                  <Text fontSize="sm">{message.content}</Text>
+                  <pre
+                    style={{
+                      whiteSpace: "pre-wrap",
+                      fontFamily: "var(--chakra-fonts-body)",
+                    }}
+                  >
+                    <Text fontSize="sm">{message.content}</Text>
+                  </pre>
                 </Box>
               );
             })}
