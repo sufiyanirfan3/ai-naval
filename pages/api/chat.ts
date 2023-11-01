@@ -17,30 +17,8 @@ export default async function translate(
 
   const translatedText = await askOpenAI({ messages, userName });
 
-  const TRIAL_URL = "https://api.elevenlabs.io";
-  const API_PATH = `/v1/text-to-speech/${process.env.ELEVENLABS_VOICE_ID}`;
-  const API_KEY = process.env.ELEVENLABS_KEY as string;
-
-  const OPTIONS = {
-    method: "POST",
-    body: JSON.stringify({
-      text: translatedText,
-      model_id: "eleven_monolingual_v1",
-    }),
-    headers: {
-      "xi-api-key": API_KEY,
-      "Content-Type": "application/json",
-      accept: "audio/mpeg",
-    },
-  };
-
-  const response = await fetch(TRIAL_URL + API_PATH, OPTIONS);
-
-  const audioData = await response.arrayBuffer();
-  const audioDataBase64 = Buffer.from(audioData).toString("base64");
-
   res.setHeader("Content-Type", "application/json");
-  res.send(JSON.stringify({ audioDataBase64, translatedText }));
+  res.send(JSON.stringify({ translatedText }));
 }
 
 async function askOpenAI({
@@ -85,7 +63,7 @@ async function askOpenAI({
           role: "system",
           content: `
         Act as a conversational AI chatbot. Your name is salesforce assistant. The user's name is ${userName}.
-        Introduce youself to ${userName}. Don't mention context snippets when replying to user and only mention yourself by your first name. Answer only according to current context. Dont take into account previous messages they are just for reference.
+        Introduce youself to ${userName}. Don't mention context snippets when replying to user and only mention yourself by your first name. Answer very shortly. Answer only according to current context. Dont take into account previous messages they are just for reference. Answer 
         `,
         },
         ...(messages || [

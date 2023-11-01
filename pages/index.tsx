@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from "react";
 import Head from "next/head";
-import { FaTwitter } from "react-icons/fa";
 import Beatloader from "react-spinners/BeatLoader";
 
 import {
@@ -21,8 +20,6 @@ import NameInput from "@/components/NameInput";
 import { Message } from "@/types";
 
 function Home() {
-  // ref need to play audio
-  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   // storing array messages in state
   const [messages, setMessages] = useState<Message[]>([]);
@@ -130,7 +127,6 @@ function Home() {
           <>
             {messages.map((message, index) => {
               const isUser = message.role === "user";
-              <audio ref={audioRef} />;
               return (
                 <Box
                   key={index}
