@@ -53,6 +53,8 @@ async function askOpenAI({
     3) ${data?.[2]?.pageContent}
     `;
 
+    console.log(updatedMsgContent)
+
     messages[messages.length - 1].content = updatedMsgContent;
   }
 
