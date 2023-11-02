@@ -31,26 +31,26 @@ async function askOpenAI({
   const pinecone = await pineconeStore();
 
   console.log("messages req: ", messages);
-  var updatedMsgContent;
+
   // updated the message content to include context snippets
   if (messages?.length > 0) {
     const lastMsgContent = messages[messages.length - 1].content;
 
-    const data = await pinecone.similaritySearch(lastMsgContent, 5);
+    const data = await pinecone.similaritySearch(lastMsgContent, 3);
 
     console.log("pinecone data.length: ", data.length);
 
-    updatedMsgContent = `${lastMsgContent}`;
-    // const updatedMsgContent = `
-    // user question/statement: ${lastMsgContent}
-    // context snippets:
-    // ---
-    // 1) ${data?.[0]?.pageContent}
-    // ---
-    // 2) ${data?.[1]?.pageContent}
-    // ---
-    // 3) ${data?.[2]?.pageContent}
-    // `;
+    // updatedMsgContent = `${lastMsgContent}`;
+    const updatedMsgContent = `
+    user question/statement: ${lastMsgContent}
+    context snippets:
+    ---
+    1) ${data?.[0]?.pageContent}
+    ---
+    2) ${data?.[1]?.pageContent}
+    ---
+    3) ${data?.[2]?.pageContent}
+    `;
 
     messages[messages.length - 1].content = updatedMsgContent;
   }
@@ -63,19 +63,19 @@ async function askOpenAI({
           role: "system",
           content: `
         Act as a conversational AI chatbot. Your name is salesforce assistant. The user's name is ${userName}.
-        Introduce youself to ${userName}. Don't mention context snippets when replying to user and only mention yourself by your first name. Answer very shortly. Answer only according to current context. Dont take into account previous messages they are just for reference. Answer 
+        Introduce youself to ${userName}. Don't mention context snippets when replying to user and only mention yourself by your first name. Answer only according to current context. Dont take into account previous messages they are just for reference.
         `,
         },
-        {
-          role: "user",
-          content: `${updatedMsgContent}`,
-        },
-        //   ...(messages || [
-        //     {
-        //       role: "user",
-        //       content: "Hi There!",
-        //     },
-        //   ]),
+        // {
+        //   role: "user",
+        //   content: `${updatedMsgContent}`,
+        // },
+          ...(messages || [
+            {
+              role: "user",
+              content: "Hi There!",
+            },
+          ]),
       ],
     });
 
