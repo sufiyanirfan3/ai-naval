@@ -71,12 +71,12 @@ async function askOpenAI({
           role: "user",
           content: `${updatedMsgContent}`,
         },
-          // ...(messages || [
-          //   {
-          //     role: "user",
-          //     content: "Hi There!",
-          //   },
-          // ]),
+          ...(messages.slice(-3) || [
+            {
+              role: "user",
+              content: "Hi There!",
+            },
+          ]),
       ],
     });
 
