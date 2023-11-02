@@ -40,17 +40,17 @@ async function askOpenAI({
 
     console.log("pinecone data.length: ", data.length);
 
-    // updatedMsgContent = `${lastMsgContent}`;
-    const updatedMsgContent = `
-    user question/statement: ${lastMsgContent}
-    context snippets:
-    ---
-    1) ${data?.[0]?.pageContent}
-    ---
-    2) ${data?.[1]?.pageContent}
-    ---
-    3) ${data?.[2]?.pageContent}
-    `;
+    const updatedMsgContent = `${lastMsgContent}`;
+    // const updatedMsgContent = `
+    // user question/statement: ${lastMsgContent}
+    // context snippets:
+    // ---
+    // 1) ${data?.[0]?.pageContent}
+    // ---
+    // 2) ${data?.[1]?.pageContent}
+    // ---
+    // 3) ${data?.[2]?.pageContent}
+    // `;
 
     messages[messages.length - 1].content = updatedMsgContent;
   }
