@@ -36,12 +36,20 @@ async function askOpenAI({
   var updatedMsgContent;
   if (messages?.length > 0) {
     const lastMsgContent = messages[messages.length - 1].content;
-
-    const data = await pinecone.similaritySearch(lastMsgContent, 7);
-
+  
+    let data = await pinecone.similaritySearch(lastMsgContent, 7);
+  
     console.log("pinecone data.length: ", data.length);
-
-    // updatedMsgContent = `${lastMsgContent}`;
+  
+    // Clean the newline characters from data responses
+    data.forEach((item) => {
+      if (item.pageContent) {
+        item.pageContent = item.pageContent.replace(/\n/g, ' ');
+      }
+    });
+  
+    console.log(data);
+  
     updatedMsgContent = `
     user question/statement: ${lastMsgContent}
     context snippets:
@@ -52,11 +60,34 @@ async function askOpenAI({
     ---
     3) ${data?.[2]?.pageContent}
     `;
-
+  
     console.log(updatedMsgContent);
-
+  
     messages[messages.length - 1].content = updatedMsgContent;
   }
+  // if (messages?.length > 0) {
+  //   const lastMsgContent = messages[messages.length - 1].content;
+
+  //   const data = await pinecone.similaritySearch(lastMsgContent, 7);
+
+  //   console.log("pinecone data.length: ", data.length);
+
+  //   // updatedMsgContent = `${lastMsgContent}`;
+  //   updatedMsgContent = `
+  //   user question/statement: ${lastMsgContent}
+  //   context snippets:
+  //   ---
+  //   1) ${data?.[0]?.pageContent}
+  //   ---
+  //   2) ${data?.[1]?.pageContent}
+  //   ---
+  //   3) ${data?.[2]?.pageContent}
+  //   `;
+
+  //   console.log(updatedMsgContent);
+
+  //   messages[messages.length - 1].content = updatedMsgContent;
+  // }
 
   try {
     const response = await openai.createChatCompletion({
