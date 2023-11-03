@@ -73,7 +73,7 @@ async function askOpenAI({
           role: "user",
           content: `${updatedMsgContent}`,
         },
-          ...(messages.slice(-3) || [
+          ...(messages || [
             {
               role: "user",
               content: "Hi There!",
