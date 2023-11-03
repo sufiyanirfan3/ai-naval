@@ -97,7 +97,7 @@ async function askOpenAI({
           role: "system",
           content: `
         Act as a conversational AI chatbot. Your name is salesforce assistant. The user's name is ${userName}.
-        Introduce youself to ${userName}. Don't mention context snippets when replying to user and only mention yourself by your first name. Answer only according to current context. Dont take into account previous messages they are just for reference.
+        Introduce youself to ${userName}. Don't mention context snippets when replying to user and only mention yourself by your first name. Answer only according to current context. Dont take into account previous messages they are just for reference. The previous messages are just for your help if user says hi, hello or thankyou give them general answer.
         `,
         },
         // {
