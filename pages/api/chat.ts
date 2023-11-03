@@ -37,14 +37,14 @@ async function askOpenAI({
   if (messages?.length > 0) {
     const lastMsgContent = messages[messages.length - 1].content;
   
-    let data = await pinecone.similaritySearch(lastMsgContent, 7);
+    let data = await pinecone.similaritySearch(lastMsgContent, 3);
   
     console.log("pinecone data.length: ", data.length);
   
     // Clean the newline characters from data responses
     data.forEach((item) => {
       if (item.pageContent) {
-        item.pageContent = item.pageContent.replace(/\\/g, ' ');
+        item.pageContent = item.pageContent.replace(/[\\.\n]/g, '');
       }
     });
   
