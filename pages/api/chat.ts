@@ -37,7 +37,7 @@ async function askOpenAI({
   if (messages?.length > 0) {
     const lastMsgContent = messages[messages.length - 1].content;
 
-    const data = await pinecone.similaritySearch(lastMsgContent, 3);
+    const data = await pinecone.similaritySearch(lastMsgContent, 7);
 
     console.log("pinecone data.length: ", data.length);
 
@@ -53,7 +53,7 @@ async function askOpenAI({
     3) ${data?.[2]?.pageContent}
     `;
 
-    console.log(updatedMsgContent)
+    console.log(updatedMsgContent);
 
     messages[messages.length - 1].content = updatedMsgContent;
   }
@@ -69,22 +69,23 @@ async function askOpenAI({
         Introduce youself to ${userName}. Don't mention context snippets when replying to user and only mention yourself by your first name. Answer only according to current context. Dont take into account previous messages they are just for reference.
         `,
         },
-        {
-          role: "user",
-          content: `${updatedMsgContent}`,
-        },
-          ...(messages || [
-            {
-              role: "user",
-              content: "Hi There!",
-            },
-          ]),
+        // {
+        //   role: "user",
+        //   content: `${updatedMsgContent}`,
+        // },
+        ...(messages || [
+          {
+            role: "user",
+            content: "Hi There!",
+          },
+        ]),
       ],
     });
 
     return response?.data?.choices?.[0]?.message?.content;
   } catch (e: any) {
     console.log("error in response: ", e);
-    return "There was an error in processing the ai response.";
+    return e;
+    // return "There was an error in processing the ai response.";
   }
 }
