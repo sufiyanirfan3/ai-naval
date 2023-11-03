@@ -44,7 +44,7 @@ async function askOpenAI({
     // Clean the newline characters from data responses
     data.forEach((item) => {
       if (item.pageContent) {
-        item.pageContent = item.pageContent.replace(/\n/g, ' ');
+        item.pageContent = item.pageContent.replace(/\\/g, ' ');
       }
     });
   
