@@ -101,7 +101,7 @@ function Home() {
 
   const [userName, setUserName] = useState<null | string>(null);
 
-  const assistantName = "Salesforce";
+  const assistantName = "Fintech AI";
 
   return (
     <>
@@ -110,10 +110,10 @@ function Home() {
       </Head>
       <VStack pt={40} px={4} mb={100} spacing={4} maxW="600px" mx="auto">
         <Heading as="h1" color="black">
-          AI Chatbot That Gives Answer on trained documents
+        Comply A.I Chatbot
         </Heading>
         <Text color="black" as="i" fontSize="xs">
-          Start a conversation with Salesforce Chat.{" "}
+        Start a conversation with our chatbot that was trained on laws, regulations, and guidance impacting fintechs with oversight of a former fintech Chief Compliance Officer.{" "}
         </Text>
 
         {!userName ? (

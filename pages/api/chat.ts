@@ -36,20 +36,20 @@ async function askOpenAI({
   var updatedMsgContent;
   if (messages?.length > 0) {
     const lastMsgContent = messages[messages.length - 1].content;
-  
+
     let data = await pinecone.similaritySearch(lastMsgContent, 3);
-  
+
     console.log("pinecone data.length: ", data.length);
-  
+
     // Clean the newline characters from data responses
     data.forEach((item) => {
       if (item.pageContent) {
-        item.pageContent = item.pageContent.replace(/[\\.\n]/g, '');
+        item.pageContent = item.pageContent.replace(/[\\.\n]/g, "");
       }
     });
-  
+
     console.log(data);
-  
+
     updatedMsgContent = `
     user question/statement: ${lastMsgContent}
     context snippets:
@@ -60,9 +60,9 @@ async function askOpenAI({
     ---
     3) ${data?.[2]?.pageContent}
     `;
-  
+
     console.log(updatedMsgContent);
-  
+
     messages[messages.length - 1].content = updatedMsgContent;
   }
   // if (messages?.length > 0) {
@@ -96,7 +96,7 @@ async function askOpenAI({
         {
           role: "system",
           content: `
-        Act as a conversational AI chatbot. Your name is salesforce assistant. The user's name is ${userName}.
+        Act as a conversational AI chatbot. You are trained on laws, regulations, and guidance impacting fintechs with oversight of a former fintech Chief Compliance Officer. The user's name is ${userName}.
         Introduce youself to ${userName}. Don't mention context snippets when replying to user and only mention yourself by your first name. Answer only according to current context. Dont take into account previous messages they are just for reference. The previous messages are just for your help if user says hi, hello or thankyou give them general answer.
         `,
         },
