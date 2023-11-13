@@ -1,7 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import Head from "next/head";
 import Beatloader from "react-spinners/BeatLoader";
-
+import Image from "next/image";
+import sunImage from "./Sun_Icon.jpg";
 import {
   Box,
   Button,
@@ -20,7 +21,6 @@ import NameInput from "@/components/NameInput";
 import { Message } from "@/types";
 
 function Home() {
-
   // storing array messages in state
   const [messages, setMessages] = useState<Message[]>([]);
 
@@ -101,19 +101,27 @@ function Home() {
 
   const [userName, setUserName] = useState<null | string>(null);
 
-  const assistantName = "Fintech AI";
+  const assistantName = "Compli*Sun";
 
   return (
     <>
       <Head>
-        <title>AI Bot</title>
+        <title>Compli*Sun AI Bot</title>
       </Head>
-      <VStack pt={40} px={4} mb={100} spacing={4} maxW="600px" mx="auto">
+      <VStack pt={10} px={4} mb={100} spacing={4} maxW="600px" mx="auto">
+        <Image
+          src={sunImage}
+          alt="Sun Icon"
+          width={180} // Set the desired width
+          height={180} // Set the desired height
+        />
         <Heading as="h1" color="black">
-        Comply A.I Chatbot
+          Compli*Sun AI Bot
         </Heading>
         <Text color="black" as="i" fontSize="xs">
-        Start a conversation with our chatbot that was trained on laws, regulations, and guidance impacting fintechs with oversight of a former fintech Chief Compliance Officer.{" "}
+          Start a conversation with our chatbot that was trained on laws,
+          regulations, and guidance impacting fintechs with oversight of a
+          former fintech Chief Compliance Officer.{" "}
         </Text>
 
         {!userName ? (
